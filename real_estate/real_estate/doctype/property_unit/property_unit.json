@@ -30,12 +30,16 @@
   "is_road_side",
   "location_section",
   "address",
+  "column_break_jnehk",
+  "address_display",
   "pricing_section",
   "price",
   "column_break_vjpnz",
   "payment_plan_template",
   "status_section",
-  "booking_status"
+  "booking_status",
+  "column_break_em90u",
+  "booked_by"
  ],
  "fields": [
   {
@@ -251,6 +255,28 @@
    "label": "Property Type",
    "options": "Property Type",
    "reqd": 1
+  },
+  {
+   "fieldname": "address_display",
+   "fieldtype": "Small Text",
+   "label": "Address Display",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_jnehk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_em90u",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "booked_by",
+   "fieldtype": "Link",
+   "label": "Booked By",
+   "no_copy": 1,
+   "options": "Customer",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -261,7 +287,7 @@
    "link_fieldname": "property_unit"
   }
  ],
- "modified": "2023-02-13 15:16:42.740176",
+ "modified": "2023-02-23 15:08:39.291847",
  "modified_by": "Administrator",
  "module": "Real Estate",
  "name": "Property Unit",

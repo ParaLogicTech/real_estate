@@ -6,11 +6,16 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import cint, getdate, flt, add_to_date, today
 from real_estate.real_estate.doctype.property_payment_plan_template.property_payment_plan_template import get_payment_plan
+from erpnext.accounts.party import get_address_display
+from frappe.contacts.doctype.address.address import get_default_address
+from frappe.contacts.doctype.contact.contact import get_default_contact
+from frappe.contacts.doctype.contact.contact import get_contact_details
 import json
 
 
 force_fields = [
 	'unit_number', 'property_type', 'project', 'block', 'block_name', 'floor',
+	'tax_cnic', 'contact_mobile', 'contact_phone', 'contact_email'
 ]
 
 dont_update_if_missing = [
@@ -33,6 +38,7 @@ class PropertyBookingOrder(Document):
 
 	def set_missing_values(self, for_validate=False):
 		self.set_property_unit_details()
+		self.set_customer_details(for_validate=for_validate)
 
 	def on_submit(self):
 		self.update_property_unit()
@@ -44,6 +50,11 @@ class PropertyBookingOrder(Document):
 	def set_title(self):
 		self.title = self.customer_name or self.customer
 
+	def set_customer_details(self, for_validate=False):
+		customer_details = get_customer_details(self.customer)
+		for k, v in customer_details.items():
+			if self.meta.has_field(k) and (not self.get(k) or k in force_fields) and k not in dont_update_if_missing:
+				self.set(k, v)
 	def create_invoices_on_submit(self):
 		for payment in self.payment_schedule:
 			if getdate(payment.due_date) <= getdate(today()):
@@ -134,7 +145,8 @@ class PropertyBookingOrder(Document):
 
 	def update_property_unit(self):
 		property_unit = frappe.get_doc('Property Unit', self.property_unit)
-		property_unit.set_status(update=True)
+		property_unit.set_unit_template_booked_by(update=True, update_modified=True)
+		property_unit.set_status(update=True, update_modified=True)
 		property_unit.notify_update()
 
 
@@ -206,6 +218,26 @@ def get_installment_date(payment_plan, installment):
 
 	return start_date
 
+@frappe.whitelist()
+def get_customer_details(customer):
+	out = frappe._dict()
+
+	# Customer Name
+	out.customer_name = frappe.get_cached_value('Customer', customer, 'customer_name')
+
+	# Tax IDs
+	# out.tax_id = customer_details.tax_id
+	out.tax_cnic = frappe.get_cached_value('Customer', customer, 'tax_cnic')
+
+	# Contact
+	out.contact_person = get_default_contact("Customer", customer)
+	if out.contact_person:
+		contact_details = get_contact_details(out.contact_person)
+		out.contact_mobile = contact_details.contact_mobile
+		out.contact_phone = contact_details.contact_phone
+		out.contact_email = contact_details.contact_email
+
+	return out
 
 @frappe.whitelist()
 def get_property_unit_details(property_unit):
@@ -235,7 +267,7 @@ def make_sales_invoice(property_booking_order, schedule_row_name):
 		frappe.throw(_("Invalid Payment Schedule reference"))
 
 	invoice = frappe.new_doc('Sales Invoice')
-	property_settings = frappe.get_cached_doc('Property Settings')
+	property_settings = frappe.get_cached_doc('Real Estate Settings')
 
 	invoice.set_posting_time = 1
 	invoice.company = booking_doc.company

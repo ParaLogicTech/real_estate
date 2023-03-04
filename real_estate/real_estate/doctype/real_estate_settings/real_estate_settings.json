@@ -1,6 +1,5 @@
 {
  "actions": [],
- "allow_rename": 1,
  "creation": "2023-01-26 17:11:29.735368",
  "default_view": "List",
  "doctype": "DocType",
@@ -11,19 +10,36 @@
   "tax_template",
   "column_break_3",
   "section_break_4",
-  "property_uom",
+  "property_transaction_uom",
   "uom",
-  "item_group"
+  "item_group",
+  "default_area_unit"
  ],
  "fields": [
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break",
+   "label": "Invoice Configuration"
+  },
+  {
+   "fieldname": "tax_template",
+   "fieldtype": "Link",
+   "label": "Sales Taxes and Charges Template",
+   "options": "Sales Taxes and Charges Template"
+  },
   {
    "fieldname": "column_break_3",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "property_uom",
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break",
+   "label": "Transaction Item Configuration"
+  },
+  {
+   "fieldname": "property_transaction_uom",
    "fieldtype": "Link",
-   "label": "Property UOM",
+   "label": "Property Transaction UOM",
    "options": "UOM"
   },
   {
@@ -37,29 +53,19 @@
    "options": "Item Group"
   },
   {
-   "fieldname": "tax_template",
+   "fieldname": "default_area_unit",
    "fieldtype": "Link",
-   "label": "Sales Taxes and Charges Template",
-   "options": "Sales Taxes and Charges Template"
-  },
-  {
-   "fieldname": "section_break_1",
-   "fieldtype": "Section Break",
-   "label": "Invoice Configuration"
-  },
-  {
-   "fieldname": "section_break_4",
-   "fieldtype": "Section Break",
-   "label": "Transaction Item Configuration"
+   "label": "Default Area Unit",
+   "options": "UOM"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-01-26 17:28:56.306281",
+ "modified": "2023-02-16 13:22:48.000636",
  "modified_by": "Administrator",
  "module": "Real Estate",
- "name": "Property Settings",
+ "name": "Real Estate Settings",
  "owner": "Administrator",
  "permissions": [
   {

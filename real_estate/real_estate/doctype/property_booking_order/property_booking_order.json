@@ -19,9 +19,8 @@
   "expected_possession_date",
   "amended_from",
   "customer_details_section",
-  "contact_no",
   "column_break_6m3hy",
-  "cnic",
+  "tax_cnic",
   "unit_details_section",
   "property_unit",
   "unit_number",
@@ -35,12 +34,25 @@
   "floor",
   "payment_plan_section",
   "total_price",
+  "outstanding_amount",
   "column_break_qpvqc",
   "payment_plan_template",
   "section_break_rftju",
   "payment_plan",
   "payment_schedule_tab",
   "payment_schedule",
+  "address_and_contact_tab",
+  "address_section",
+  "customer_address_name",
+  "customer_address",
+  "column_break_u40eq",
+  "contact_section",
+  "contact_person",
+  "contact_display",
+  "column_break_67uqf",
+  "contact_phone",
+  "contact_mobile",
+  "contact_email",
   "status_tab",
   "booking_status",
   "column_break_30",
@@ -95,7 +107,7 @@
    "in_standard_filter": 1,
    "label": "Booking Status",
    "no_copy": 1,
-   "options": "\nOnhold\nReturned\nTransferred",
+   "options": "Onhold\nReturned\nTransferred",
    "read_only": 1
   },
   {
@@ -132,22 +144,8 @@
    "reqd": 1
   },
   {
-   "fetch_from": "customer.mobile_no",
-   "fetch_if_empty": 1,
-   "fieldname": "contact_no",
-   "fieldtype": "Data",
-   "label": "Contact No"
-  },
-  {
    "fieldname": "column_break_15",
    "fieldtype": "Column Break"
-  },
-  {
-   "fetch_from": "customer.tax_cnic",
-   "fetch_if_empty": 1,
-   "fieldname": "cnic",
-   "fieldtype": "Data",
-   "label": "CNIC"
   },
   {
    "fieldname": "column_break_9",
@@ -298,12 +296,100 @@
    "no_copy": 1,
    "options": "Property Type",
    "read_only": 1
+  },
+  {
+   "fieldname": "outstanding_amount",
+   "fieldtype": "Currency",
+   "label": "Outstanding Amount"
+  },
+  {
+   "fieldname": "address_and_contact_tab",
+   "fieldtype": "Tab Break",
+   "label": "Address and Contact"
+  },
+  {
+   "fieldname": "address_section",
+   "fieldtype": "Section Break",
+   "label": "Address"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "customer_address_name",
+   "fieldtype": "Link",
+   "label": "Customer Address Name",
+   "options": "Address",
+   "print_hide": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "customer_address",
+   "fieldtype": "Small Text",
+   "label": "Customer Address",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_u40eq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "contact_section",
+   "fieldtype": "Section Break",
+   "label": "Contact"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "contact_person",
+   "fieldtype": "Link",
+   "label": "Contact Person",
+   "options": "Contact",
+   "print_hide": 1
+  },
+  {
+   "fieldname": "column_break_67uqf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "contact_email",
+   "fieldtype": "Data",
+   "label": "Contact Email",
+   "options": "Email",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.tax_cnic",
+   "fieldname": "tax_cnic",
+   "fieldtype": "Data",
+   "label": "CNIC",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "contact_display",
+   "fieldtype": "Data",
+   "label": "Contact Name",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "contact_mobile",
+   "fieldtype": "Data",
+   "label": "Mobile No",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "contact_phone",
+   "fieldtype": "Data",
+   "label": "Phone No",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-02-13 15:23:33.559015",
+ "modified": "2023-02-23 14:14:17.730752",
  "modified_by": "Administrator",
  "module": "Real Estate",
  "name": "Property Booking Order",

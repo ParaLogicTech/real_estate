@@ -3,6 +3,9 @@
 frappe.provide("real_estate");
 
 real_estate.PropertyUnit = class PropertyUnit extends frappe.ui.form.Controller {
+	onload() {
+		this.setup_queries();
+	}
 	setup() {
 		this.frm.custom_make_buttons = {
 			'Property Booking Order': 'Property Booking Order',
@@ -22,10 +25,25 @@ real_estate.PropertyUnit = class PropertyUnit extends frappe.ui.form.Controller 
 		}
 	}
 
+	setup_queries() {
+		let me = this;
+		this.frm.set_query("block", function() {
+			return {
+				filters:  {
+					project: me.frm.doc.project
+				}
+			};
+		});
+	}
+
 	make_property_booking_order() {
 		frappe.new_doc("Property Booking Order").then(r => {
 			cur_frm.set_value("property_unit", this.frm.doc.name);
 		});
+	}
+
+	address() {
+		erpnext.utils.get_address_display(this.frm, 'address', 'address_display');
 	}
 }
 
