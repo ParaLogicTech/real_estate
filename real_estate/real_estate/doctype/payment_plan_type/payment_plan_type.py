@@ -35,7 +35,6 @@ class PaymentPlanType(Document):
 			'is_stock_item': 0,
 			'is_purchase_item': 0,
 			'is_sales_item': 1,
-			'include_item_in_manufacturing': 0,
 			'stock_uom': property_settings.property_transaction_uom,
 			'uom': property_settings.property_transaction_uom,
 			'item_group': property_settings.item_group
