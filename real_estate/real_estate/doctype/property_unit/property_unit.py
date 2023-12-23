@@ -3,10 +3,10 @@
 
 import frappe
 from frappe import _
-from erpnext.controllers.status_updater import StatusUpdater
+from erpnext.controllers.status_updater import StatusUpdaterERP
 
 
-class PropertyUnit(StatusUpdater):
+class PropertyUnit(StatusUpdaterERP):
 	def validate(self):
 		self.set_address_display()
 		self.validate_block_project()
